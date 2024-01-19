@@ -16,8 +16,12 @@ const getSearch = async search => {
   return response.data;
 };
 
-export { getTrendingMovies, getSearch };
+const getMovie = async movieId => {
+  const response = await axios.get(
+    `https://api.themoviedb.org/3/movie/${movieId}?language=en-US&api_key=bc2265aa30ecd1392b8b84679bff4db4`
+  );
 
-// const response = await axios.get(
-//     `https://api.themoviedb.org/3/search/movie?query=${search}&include_adult=false&language=en-US&page=${page}`
-//   );
+  return response.data;
+};
+
+export { getTrendingMovies, getSearch, getMovie };

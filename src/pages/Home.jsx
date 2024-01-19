@@ -1,25 +1,7 @@
 import { getTrendingMovies } from '../api/api';
 import { useState, useEffect } from 'react';
 import styled from 'styled-components';
-
-const StyledDiv = styled('div')`
-  h1 {
-    margin-left: 20px;
-    color: #36034b;
-  }
-
-  li {
-    list-style-type: circle;
-    font-size: 18px;
-    color: #20012c;
-    font-weight: 400;
-    padding: 2px;
-  }
-
-  &.active {
-    color: #14855f;
-  }
-`;
+import { Link } from 'react-router-dom';
 
 export default function Home() {
   const [trendingMovie, setTrendingMovie] = useState([]);
@@ -45,11 +27,37 @@ export default function Home() {
       <ul>
         {trendingMovie.map(movie => (
           <li key={movie.id}>
-            {movie.title}
-            {movie.name}
+            <StyledLink to={`${movie.id}`}>
+              {movie.title}
+              {movie.name}
+            </StyledLink>
           </li>
         ))}
       </ul>
     </StyledDiv>
   );
 }
+
+const StyledDiv = styled('div')`
+  h1 {
+    margin-left: 20px;
+    color: #36034b;
+  }
+
+  li {
+    list-style-type: none;
+    font-size: 18px;
+    color: #20012c;
+    font-weight: 400;
+    padding: 2px;
+    text-decoration: none;
+  }
+`;
+
+const StyledLink = styled(Link)`
+  color: #20012c;
+  padding: 6px;
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: 400;
+`;

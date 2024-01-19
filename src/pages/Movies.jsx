@@ -1,5 +1,7 @@
 import { getSearch } from '../api/api';
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import styled from 'styled-components';
 
 export default function Movies() {
   const [searchInput, setSearchInput] = useState('');
@@ -31,9 +33,6 @@ export default function Movies() {
       } catch (error) {
         console.log(error);
       }
-      // finally {
-      //   setIsLoading(false);
-      // }
     };
 
     getMovie();
@@ -53,14 +52,34 @@ export default function Movies() {
           <span>Search</span>
         </button>
       </form>
-      <ul>
+      <StyledUl>
         {searchList.map(movie => (
-          <li key={movie.id}>
-            {movie.title}
-            {movie.name}
-          </li>
+          <StyledLi key={movie.id}>
+            <StyledLink to={`${movie.id}`}>
+              {movie.title}
+              {movie.name}
+            </StyledLink>
+          </StyledLi>
         ))}
-      </ul>
+      </StyledUl>
     </div>
   );
 }
+
+const StyledUl = styled('ul')`
+  padding: 0;
+`;
+
+const StyledLink = styled(Link)`
+  color: #20012c;
+  padding: 6px;
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: 400;
+`;
+
+const StyledLi = styled('li')`
+  list-style-type: none;
+  line-height: 1.5em;
+  margin-left: 0;
+`;
