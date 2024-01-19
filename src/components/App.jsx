@@ -1,6 +1,7 @@
 import { Routes, Route, NavLink } from 'react-router-dom';
 import Home from '../pages/Home';
-import About from './About';
+import Cast from './Cast';
+import Reviews from './Reviews';
 import Movies from '../pages/Movies';
 import NotFound from './NotFound';
 import styled from 'styled-components';
@@ -13,29 +14,21 @@ export default function App() {
         <StyledLink to="/" end>
           Home
         </StyledLink>
-        {/* <StyledLink to="/about">About</StyledLink> */}
         <StyledLink to="/movies">Movies</StyledLink>
       </nav>
 
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/:movieId" element={<MovieDetails />} />
-        <Route path="/about" element={<About />} />
         <Route path="/movies" element={<Movies />} />
-        <Route path="/movies/:movieId" element={<MovieDetails />} />
+        <Route path="/movies/:movieId" element={<MovieDetails />}>
+          <Route path="cast" element={<Cast />} />
+          <Route path="reviews" element={<Reviews />} />
+        </Route>
         <Route path="*" element={<NotFound />} />
-        {/* <Route path="/blog/:postId" element={<BlogPost />} /> */}
       </Routes>
     </StyledApp>
   );
-}
-
-{
-  /* <Route path="/about" element={<About />}>
-  <Route path="mission" element={<Mission />} />
-  <Route path="team" element={<Team />} />
-  <Route path="reviews" element={<Reviews />} />
-</Route> */
 }
 
 const StyledLink = styled(NavLink)`

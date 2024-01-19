@@ -1,7 +1,8 @@
-import { useParams } from 'react-router-dom';
+import { Outlet, useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { getMovie } from '../api/api';
-import styled from 'styled-components';
+import { Link } from 'react-router-dom';
+// import styled from 'styled-components';
 
 export default function MovieDetails() {
   const { movieId } = useParams();
@@ -24,10 +25,21 @@ export default function MovieDetails() {
 
   const release = String(movie.release_date).substring(0, 4);
   const score = Number(movie.vote_average) * 10;
+  const defaultImg =
+    'https://ireland.apollo.olxcdn.com/v1/files/0iq0gb9ppip8-UA/image;s=1000x700';
 
   return (
     <div>
-      <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt="" />
+      <button type="button">Go back</button>
+      <img
+        src={
+          movie.poster_path
+            ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
+            : defaultImg
+        }
+        width={250}
+        alt="poster"
+      />
       <h1>
         {movie.original_title} ({release})
       </h1>
@@ -38,6 +50,17 @@ export default function MovieDetails() {
       {genre.map(genre => (
         <li key={genre.id}>{genre.name}</li>
       ))}
+      <p>Additional information</p>
+
+      <ul>
+        <li>
+          <Link to="/movies/:movieId/cast">Cast</Link>
+        </li>
+        <li>
+          <Link to="/movies/:movieId/reviews">Reviews</Link>
+        </li>
+      </ul>
+      <Outlet />
     </div>
   );
 }
