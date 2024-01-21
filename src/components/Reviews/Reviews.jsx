@@ -1,7 +1,6 @@
 import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import { getReviews } from '../api/api';
-// import styled from 'styled-components';
+import { getReviews } from '../../api/api';
 
 export default function Reviews(id) {
   const { movieId } = useParams();
@@ -9,6 +8,8 @@ export default function Reviews(id) {
   const [reviews, setReviews] = useState([]);
 
   useEffect(() => {
+    if (!movieId) return;
+
     const getReview = async () => {
       try {
         const review = await getReviews(movieId);
