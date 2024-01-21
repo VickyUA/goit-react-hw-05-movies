@@ -1,11 +1,13 @@
 import { Outlet, useParams } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { getMovie } from '../api/api';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 // import styled from 'styled-components';
 
 export default function MovieDetails() {
   const { movieId } = useParams();
+  const location = useLocation();
+  const goBack = useRef(location.state?.from || location.state?.from2 || '/');
 
   const [movie, setMovie] = useState({});
   const [genre, setGenre] = useState([]);
@@ -30,7 +32,7 @@ export default function MovieDetails() {
 
   return (
     <div>
-      <button type="button">Go back</button>
+      <Link to={goBack.current}>Go back</Link>
       <img
         src={
           movie.poster_path
@@ -54,10 +56,10 @@ export default function MovieDetails() {
 
       <ul>
         <li>
-          <Link to="/movies/:movieId/cast">Cast</Link>
+          <Link to="cast">Cast</Link>
         </li>
         <li>
-          <Link to="/movies/:movieId/reviews">Reviews</Link>
+          <Link to="reviews">Reviews</Link>
         </li>
       </ul>
       <Outlet />

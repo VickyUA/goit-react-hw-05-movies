@@ -1,15 +1,25 @@
 import { getSearch } from '../api/api';
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 
 export default function Movies() {
   const [searchInput, setSearchInput] = useState('');
   const [searchedMovie, setSearchedMovie] = useState('');
   const [searchList, setSearchList] = useState([]);
+  const [searchParams, setSearchParams] = useSearchParams();
+  searchParams.get('query');
+
+  const location = useLocation();
 
   const handleSearchChange = e => {
-    setSearchInput(e.currentTarget.value.toLowerCase());
+    const query = e.currentTarget.value.toLowerCase();
+    setSearchInput(query);
+
+    if (query === '') {
+      return setSearchParams({});
+    }
+    setSearchParams({ query: query });
   };
 
   const handleSubmit = e => {
@@ -55,7 +65,7 @@ export default function Movies() {
       <StyledUl>
         {searchList.map(movie => (
           <StyledLi key={movie.id}>
-            <StyledLink to={`${movie.id}`}>
+            <StyledLink to={`${movie.id}`} state={{ from2: location }}>
               {movie.title}
               {movie.name}
             </StyledLink>
@@ -79,7 +89,6 @@ const StyledLink = styled(Link)`
 `;
 
 const StyledLi = styled('li')`
-  list-style-type: none;
   line-height: 1.5em;
   margin-left: 0;
 `;
