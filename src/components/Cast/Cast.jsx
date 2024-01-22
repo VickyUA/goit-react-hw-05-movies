@@ -26,24 +26,28 @@ export default function Cast() {
 
   return (
     <div>
-      <h3>Cast</h3>
-      <div>
-        {cast.map(cast => (
-          <li key={cast.id}>
-            <img
-              src={
-                cast.profile_path
-                  ? `https://image.tmdb.org/t/p/w500${cast.profile_path}`
-                  : defaultImg
-              }
-              width={100}
-              alt="poster"
-            />
-            <p>{cast.name}</p>
-            <p>Character: {cast.character}</p>
-          </li>
-        ))}
-      </div>
+      {cast.length === 0 ? (
+        <p>Sorry, no information found...</p>
+      ) : (
+        <div>
+          <h3>Cast</h3>
+          {cast.map(cast => (
+            <li key={cast.id}>
+              <img
+                src={
+                  cast.profile_path
+                    ? `https://image.tmdb.org/t/p/w500${cast.profile_path}`
+                    : defaultImg
+                }
+                width={100}
+                alt="poster"
+              />
+              <p>{cast.name}</p>
+              <p>Character: {cast.character}</p>
+            </li>
+          ))}
+        </div>
+      )}
     </div>
   );
 }

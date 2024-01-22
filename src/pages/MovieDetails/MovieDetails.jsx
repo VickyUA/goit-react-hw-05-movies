@@ -8,7 +8,7 @@ import { StyledLink, StyledDiv } from './MovieDetails.styled';
 export default function MovieDetails() {
   const { movieId } = useParams();
   const location = useLocation();
-  const goBack = useRef(location.state?.from || location.state?.from2 || '/');
+  const goBack = useRef(location.state?.from ?? '/');
 
   const [movie, setMovie] = useState({});
   const [genre, setGenre] = useState([]);

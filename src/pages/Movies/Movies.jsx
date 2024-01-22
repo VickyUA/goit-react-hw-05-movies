@@ -1,27 +1,22 @@
 import { getSearch } from '../../api/api';
 import { useState, useEffect } from 'react';
-import { useLocation, useSearchParams } from 'react-router-dom';
-import { StyledUl, StyledLink, StyledLi } from './Movies.styled';
+import { useSearchParams } from 'react-router-dom';
 import Searchbar from '../../components/Searchbar/Searchbar';
+import Searchmovie from 'components/Searchmovie/Searchmovie';
 
 export default function Movies() {
-  const [searchedMovie, setSearchedMovie] = useState('');
   const [searchList, setSearchList] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
-  searchParams.get('name');
-
-  const location = useLocation();
 
   const handleFormSubmit = searchInput => {
-    setSearchedMovie(searchInput);
-    const query = searchInput;
-    if (query === '') {
+    if (searchInput === '') {
       return setSearchParams({});
     }
-    setSearchParams({ name: query });
+    setSearchParams({ name: searchInput });
   };
 
   useEffect(() => {
+    const searchedMovie = searchParams.get('name');
     if (searchedMovie === '') {
       return;
     }
@@ -36,21 +31,12 @@ export default function Movies() {
     };
 
     getMovie();
-  }, [searchedMovie]);
+  }, [searchParams]);
 
   return (
     <div>
       <Searchbar submit={handleFormSubmit} />
-      <StyledUl>
-        {searchList.map(movie => (
-          <StyledLi key={movie.id}>
-            <StyledLink to={`${movie.id}`} state={{ from2: location }}>
-              {movie.title}
-              {movie.name}
-            </StyledLink>
-          </StyledLi>
-        ))}
-      </StyledUl>
+      <Searchmovie movies={searchList} />
     </div>
   );
 }

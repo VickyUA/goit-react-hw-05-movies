@@ -23,12 +23,18 @@ export default function Reviews(id) {
 
   return (
     <div>
-      {reviews.map(reviews => (
-        <li key={reviews.id}>
-          <h3>Author: {reviews.author_details.name}</h3>
-          <p>{reviews.content}</p>
-        </li>
-      ))}
+      {reviews.length === 0 ? (
+        <p>Sorry, no information found...</p>
+      ) : (
+        <div>
+          {reviews.map(reviews => (
+            <li key={reviews.id}>
+              <h3>Author: {reviews.author_details.name}</h3>
+              <p>{reviews.content}</p>
+            </li>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
