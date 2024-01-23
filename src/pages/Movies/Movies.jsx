@@ -17,7 +17,7 @@ export default function Movies() {
 
   useEffect(() => {
     const searchedMovie = searchParams.get('name');
-    if (searchedMovie === '') {
+    if (!searchedMovie) {
       return;
     }
 

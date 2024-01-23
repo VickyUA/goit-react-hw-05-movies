@@ -13,12 +13,12 @@ export const StyledLink = styled(NavLink)`
   }
 `;
 
-export const StyledApp = styled('div')`
-  padding: 50px 200px;
-`;
-
 export const StyledHeader = styled('div')`
   padding: 30px;
   background-color: rgb(175, 198, 199);
   border-radius: 10px;
+`;
+
+export const StyledApp = styled('div')`
+  padding: 50px 200px;
 `;
